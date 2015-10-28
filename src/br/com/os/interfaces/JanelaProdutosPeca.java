@@ -11,6 +11,7 @@ import br.com.os.entidade.Produto;
 import br.com.os.entidade.ProdutoPeca;
 import br.com.os.entidade.ProdutoServico;
 import br.com.os.entidade.Visão;
+import java.beans.PropertyVetoException;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -29,16 +30,28 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         produtos_cadastrados = Produto.getVisões();
 
         JanelaPrincipal.getDeskpPanelPrincipal().add(this).setVisible(true);
+
         initComponents();
+        try {
+            this.setMaximum(true);
+        }catch(PropertyVetoException ex){
+            ex.printStackTrace();
+    }
 
-        radioOriginal.setEnabled(false);
-        radioUsada.setEnabled(false);
-        radioParalela.setEnabled(false);
-        tabela = (DefaultTableModel) tableProdutos.getModel();
+    radioOriginal.setEnabled (
 
-        inicializaTabela(null);
-        this.setMaximizable(true);
+    false);
+    radioUsada.setEnabled (
 
+    false);
+    radioParalela.setEnabled (
+    false);
+        tabela  = (DefaultTableModel) tableProdutos.getModel();
+
+    inicializaTabela(
+
+null);
+        ;
     }
 
     public void inicializaTabela(Vector<Visão<String>> produto) {
@@ -130,6 +143,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Visualizar produtos e serviços");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         labelOrdenar.setText("Ordenar a pesquisa");
@@ -226,7 +240,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                                 .addComponent(radioParalela)
                                 .addGap(18, 18, 18)
                                 .addComponent(radioUsada)))
-                        .addGap(0, 156, Short.MAX_VALUE)))
+                        .addGap(0, 78, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
@@ -248,7 +262,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                             .addComponent(radioOriginal)
                             .addComponent(radioUsada)
                             .addComponent(radioParalela))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(panelPesquisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelPesquisarTodos)
                             .addComponent(textFieldProdutoServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -409,7 +423,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonExitActionPerformed
 
     private void radioOriginalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOriginalActionPerformed
-  consultaTipo();
+        consultaTipo();
     }//GEN-LAST:event_radioOriginalActionPerformed
 
     private void radioParalelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioParalelaActionPerformed
@@ -490,12 +504,13 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
             msg_erro = "Produto nao encontrado";
         }
         if (msg_erro == null) {
-            tableProdutos.remove(this);
+            JOptionPane.showInternalMessageDialog(this, "Item removido com sucesso.");
+
+            ((DefaultTableModel) tableProdutos.getModel()).removeRow(selecao);
 
         } else {
             JOptionPane.showMessageDialog(this, msg_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        inicializaTabela(null);
 
     }
 

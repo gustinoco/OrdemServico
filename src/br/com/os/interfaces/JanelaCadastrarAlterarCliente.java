@@ -9,6 +9,7 @@ package br.com.os.interfaces;
 import br.com.os.controle.ControladorCadastroCliente;
 import br.com.os.entidade.Cliente;
 import br.com.os.entidade.Visão;
+import br.com.os.util.JTextFieldLimit;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -149,6 +150,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
 
         txtCpf.setColumns(11);
         txtCpf.setToolTipText("Cpf com 11 dígitos");
+        txtCpf.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;

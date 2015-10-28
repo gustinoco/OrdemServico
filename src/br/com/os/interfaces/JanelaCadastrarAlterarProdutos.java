@@ -365,9 +365,9 @@ public class JanelaCadastrarAlterarProdutos extends javax.swing.JInternalFrame {
                 .addComponent(labelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(17, 17, 17)
                 .addComponent(labelDescricao1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +397,7 @@ public class JanelaCadastrarAlterarProdutos extends javax.swing.JInternalFrame {
                 .addComponent(labelTempoReparo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldTempoReparo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(panelButtonsFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -464,8 +464,8 @@ public class JanelaCadastrarAlterarProdutos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ControladorFornecedor();
 
-        new JanelaCadastrarFornecedores(controladorFornecedor);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void inicializaDados() {
@@ -516,7 +516,6 @@ public class JanelaCadastrarAlterarProdutos extends javax.swing.JInternalFrame {
         radioUsada.setEnabled(false);
 
     }
-
 
     ///----------------COMECO DO INSERIR -------------
     private ProdutoPeca obterPecaInformada() {
@@ -624,7 +623,7 @@ public class JanelaCadastrarAlterarProdutos extends javax.swing.JInternalFrame {
         }
         if (msg_erro == null) {
             JOptionPane.showInternalMessageDialog(this, "Produto alterado com sucesso.");
-            dispose(); 
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, msg_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
