@@ -19,7 +19,7 @@ public class ProdutoServico extends Produto {
     }
 
     public static final Status[] status = {
-        Status.indisponivel, Status.disponivel};
+        Status.disponivel, Status.indisponivel};
 
     private Status status2;
     private float tempoReparo;
