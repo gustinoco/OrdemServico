@@ -88,7 +88,7 @@ public class JanelaCadastrarFornecedores extends javax.swing.JInternalFrame {
 
         labelID.setText("ID:");
 
-        buttonInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/add2-24.png"))); // NOI18N
+        buttonInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/add1-24.png"))); // NOI18N
         buttonInserir.setText("Inserir");
         buttonInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +104,7 @@ public class JanelaCadastrarFornecedores extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/cut24.png"))); // NOI18N
+        buttonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/close24.png"))); // NOI18N
         buttonRemover.setText("Remover");
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -122,7 +122,7 @@ public class Fornecedor {
             return null;
         } catch (SQLException exc) {
             exc.printStackTrace();
-            return "Erro na remoção";
+            return "Erro na remoção, pois já existem produtos com este fornecedor.";
         }
 
     }
