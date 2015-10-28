@@ -9,6 +9,7 @@ package br.com.os.interfaces;
 import br.com.os.controle.ControladorCadastroCliente;
 import br.com.os.entidade.Cliente;
 import br.com.os.entidade.Visão;
+import br.com.os.util.JTextFieldLimit;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -52,14 +53,13 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         labelCpf = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         labelId = new javax.swing.JLabel();
         labelNome = new javax.swing.JLabel();
         labelTelefone = new javax.swing.JLabel();
         labelEndereco = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        panelBotoes = new javax.swing.JPanel();
         buttonInserir = new javax.swing.JButton();
         buttonAlterar = new javax.swing.JButton();
         buttonRemover = new javax.swing.JButton();
@@ -92,23 +92,6 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         getContentPane().add(labelCpf, gridBagConstraints);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(jPanel2, gridBagConstraints);
 
         labelId.setText("ID:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -149,6 +132,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
 
         txtCpf.setColumns(11);
         txtCpf.setToolTipText("Cpf com 11 dígitos");
+        txtCpf.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -159,6 +143,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.weighty = 0.4;
         getContentPane().add(txtCpf, gridBagConstraints);
 
+        buttonInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/add1-24.png"))); // NOI18N
         buttonInserir.setText("Inserir");
         buttonInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +151,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/edit24.png"))); // NOI18N
         buttonAlterar.setText("Alterar");
         buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,6 +159,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/close24.png"))); // NOI18N
         buttonRemover.setText("Remover");
         buttonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +167,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/rename24.png"))); // NOI18N
         buttonLimpar.setText("Limpar");
         buttonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +175,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/search24.png"))); // NOI18N
         buttonConsultar.setText("Consultar");
         buttonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,11 +183,11 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout(panelBotoes);
+        panelBotoes.setLayout(panelBotoesLayout);
+        panelBotoesLayout.setHorizontalGroup(
+            panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotoesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(buttonInserir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,11 +200,11 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
                 .addComponent(buttonLimpar)
                 .addGap(87, 87, 87))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelBotoesLayout.setVerticalGroup(
+            panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotoesLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonInserir)
                     .addComponent(buttonAlterar)
                     .addComponent(buttonRemover)
@@ -228,7 +217,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 9;
-        getContentPane().add(jPanel1, gridBagConstraints);
+        getContentPane().add(panelBotoes, gridBagConstraints);
 
         txtId.setEditable(false);
         txtId.setEnabled(false);
@@ -276,7 +265,7 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 228;
+        gridBagConstraints.ipadx = 300;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         getContentPane().add(comboClientes, gridBagConstraints);
 
@@ -433,14 +422,13 @@ public class JanelaCadastrarAlterarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel labelCpf;
     private javax.swing.JLabel labelEndereco;
     private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
+    private javax.swing.JPanel panelBotoes;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtId;

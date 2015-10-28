@@ -11,9 +11,12 @@ import br.com.os.entidade.Produto;
 import br.com.os.entidade.ProdutoPeca;
 import br.com.os.entidade.ProdutoServico;
 import br.com.os.entidade.Visão;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyVetoException;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
@@ -29,16 +32,26 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         produtos_cadastrados = Produto.getVisões();
 
         JanelaPrincipal.getDeskpPanelPrincipal().add(this).setVisible(true);
-        initComponents();
 
-        radioOriginal.setEnabled(false);
-        radioUsada.setEnabled(false);
-        radioParalela.setEnabled(false);
+        initComponents();
+        try {
+            this.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+
+        desabilitaRadio();
+
         tabela = (DefaultTableModel) tableProdutos.getModel();
 
         inicializaTabela(null);
-        this.setMaximizable(true);
+        ;
+    }
 
+    private void desabilitaRadio() {
+        radioOriginal.setEnabled(false);
+        radioUsada.setEnabled(false);
+        radioParalela.setEnabled(false);
     }
 
     public void inicializaTabela(Vector<Visão<String>> produto) {
@@ -69,14 +82,14 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
             tabela.addColumn("Qualidade");
             tabela.addColumn("Fornecedor");
             tabela.addColumn("Preço");
-
-            tableProdutos.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tableProdutos.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tableProdutos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tableProdutos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tableProdutos.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tableProdutos.getColumnModel().getColumn(5).setPreferredWidth(100);
-            tableProdutos.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tableProdutos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tableProdutos.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tableProdutos.getColumnModel().getColumn(1).setPreferredWidth(500);
+            tableProdutos.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tableProdutos.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tableProdutos.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tableProdutos.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tableProdutos.getColumnModel().getColumn(6).setPreferredWidth(150);
 
             Vector<Visão<String>> visoes = Produto.getVisões();
             for (Visão<String> elemento : visoes) {
@@ -94,6 +107,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                 tabela.addRow(string);
 
             }
+
         }
     }
 
@@ -114,8 +128,8 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         comboFiltroGeral = new javax.swing.JComboBox();
         labelPesquisarTodos = new javax.swing.JLabel();
         textFieldProdutoServico = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        buttonPesquisar = new javax.swing.JButton();
+        labelFiltroRadio = new javax.swing.JLabel();
         radioOriginal = new javax.swing.JRadioButton();
         radioUsada = new javax.swing.JRadioButton();
         radioParalela = new javax.swing.JRadioButton();
@@ -124,12 +138,13 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         buttonAlterar = new javax.swing.JButton();
         buttonExcluir = new javax.swing.JButton();
         buttonExit = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrollTabela = new javax.swing.JScrollPane();
         tableProdutos = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Visualizar produtos e serviços");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         labelOrdenar.setText("Ordenar a pesquisa");
@@ -162,15 +177,20 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                 textFieldProdutoServicoActionPerformed(evt);
             }
         });
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/search16.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        textFieldProdutoServico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldProdutoServicoKeyPressed(evt);
             }
         });
 
-        jLabel1.setText("Deseja procurar pela qualidade?");
+        buttonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/search16.png"))); // NOI18N
+        buttonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPesquisarActionPerformed(evt);
+            }
+        });
+
+        labelFiltroRadio.setText("Deseja procurar pela qualidade?");
 
         buttonGroupQualidade.add(radioOriginal);
         radioOriginal.setText("Original");
@@ -218,7 +238,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                         .addGroup(panelPesquisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPesquisasLayout.createSequentialGroup()
                                 .addGap(50, 50, 50)
-                                .addComponent(jLabel1))
+                                .addComponent(labelFiltroRadio))
                             .addGroup(panelPesquisasLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(radioOriginal)
@@ -226,9 +246,9 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                                 .addComponent(radioParalela)
                                 .addGap(18, 18, 18)
                                 .addComponent(radioUsada)))
-                        .addGap(0, 156, Short.MAX_VALUE)))
+                        .addGap(0, 78, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
         panelPesquisasLayout.setVerticalGroup(
@@ -240,7 +260,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                         .addGroup(panelPesquisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelOrdenar)
                             .addComponent(labelFiltroGeral)
-                            .addComponent(jLabel1))
+                            .addComponent(labelFiltroRadio))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelPesquisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,13 +268,13 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
                             .addComponent(radioOriginal)
                             .addComponent(radioUsada)
                             .addComponent(radioParalela))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(panelPesquisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelPesquisarTodos)
                             .addComponent(textFieldProdutoServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPesquisasLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(buttonPesquisar)))
                 .addGap(16, 16, 16))
         );
 
@@ -283,7 +303,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/cut24.png"))); // NOI18N
+        buttonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/close24.png"))); // NOI18N
         buttonExcluir.setText("Excluir");
         buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +311,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/close24.png"))); // NOI18N
+        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/os/images/back24.png"))); // NOI18N
         buttonExit.setText("Sair");
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +364,9 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         ));
         tableProdutos.setEditingColumn(0);
         tableProdutos.setEditingRow(0);
-        jScrollPane2.setViewportView(tableProdutos);
+        tableProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableProdutos.getTableHeader().setReorderingAllowed(false);
+        scrollTabela.setViewportView(tableProdutos);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -357,7 +379,7 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 10, 11, 10);
-        getContentPane().add(jScrollPane2, gridBagConstraints);
+        getContentPane().add(scrollTabela, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -367,6 +389,9 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         buttonGroupQualidade.clearSelection();
         if (comboFiltroGeral.getSelectedItem().toString().equals("Peças")) {
             mostraFiltroPeça();
+        } else {
+            desabilitaRadio();
+
         }
     }//GEN-LAST:event_comboFiltroGeralActionPerformed
 
@@ -400,16 +425,16 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
         consultarTecla();
     }//GEN-LAST:event_comboOrdenarKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         consultarTecla();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         dispose();
     }//GEN-LAST:event_buttonExitActionPerformed
 
     private void radioOriginalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioOriginalActionPerformed
-  consultaTipo();
+        consultaTipo();
     }//GEN-LAST:event_radioOriginalActionPerformed
 
     private void radioParalelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioParalelaActionPerformed
@@ -417,6 +442,12 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
 
     private void radioUsadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioUsadaActionPerformed
   consultaTipo();    }//GEN-LAST:event_radioUsadaActionPerformed
+
+    private void textFieldProdutoServicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldProdutoServicoKeyPressed
+  if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            consultarTecla();
+        }
+    }//GEN-LAST:event_textFieldProdutoServicoKeyPressed
 
     private void consultarTecla() {
         String stringTxtField = textFieldProdutoServico.getText().toUpperCase();
@@ -490,12 +521,13 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
             msg_erro = "Produto nao encontrado";
         }
         if (msg_erro == null) {
-            tableProdutos.remove(this);
+            JOptionPane.showInternalMessageDialog(this, "Item removido com sucesso.");
+
+            ((DefaultTableModel) tableProdutos.getModel()).removeRow(selecao);
 
         } else {
             JOptionPane.showMessageDialog(this, msg_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        inicializaTabela(null);
 
     }
 
@@ -506,12 +538,11 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
     private javax.swing.JButton buttonExit;
     private javax.swing.ButtonGroup buttonGroupQualidade;
     private javax.swing.JButton buttonIncluir;
+    private javax.swing.JButton buttonPesquisar;
     private javax.swing.JComboBox comboFiltroGeral;
     private javax.swing.JComboBox comboOrdenar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelFiltroGeral;
+    private javax.swing.JLabel labelFiltroRadio;
     private javax.swing.JLabel labelOrdenar;
     private javax.swing.JLabel labelPesquisarTodos;
     private javax.swing.JPanel panelBotoes;
@@ -519,7 +550,9 @@ public class JanelaProdutosPeca extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton radioOriginal;
     private javax.swing.JRadioButton radioParalela;
     private javax.swing.JRadioButton radioUsada;
+    private javax.swing.JScrollPane scrollTabela;
     private javax.swing.JTable tableProdutos;
     private javax.swing.JTextField textFieldProdutoServico;
     // End of variables declaration//GEN-END:variables
 }
+

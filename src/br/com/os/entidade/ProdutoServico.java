@@ -13,12 +13,13 @@ package br.com.os.entidade;
 public class ProdutoServico extends Produto {
 
     public enum Status {
-        cancelado, pendente, aaaaa;
+
+        disponivel, indisponivel;
 
     }
 
     public static final Status[] status = {
-        Status.cancelado, Status.pendente, Status.aaaaa};
+        Status.disponivel, Status.indisponivel};
 
     private Status status2;
     private float tempoReparo;
@@ -29,18 +30,17 @@ public class ProdutoServico extends Produto {
         this.status2 = status2;
         this.tempoReparo = tempoReparo;
     }
-    
-    public ProdutoServico(int id, Status status2, float tempoReparo){
+
+    public ProdutoServico(int id, Status status2, float tempoReparo) {
         super(id);
         this.status2 = status2;
-        this.tempoReparo=tempoReparo;
+        this.tempoReparo = tempoReparo;
     }
-    
-    
-     public ProdutoServico(int id, int a, float tempoReparo){
+
+    public ProdutoServico(int id, int a, float tempoReparo) {
         super(id);
         this.a = a;
-        this.tempoReparo=tempoReparo;
+        this.tempoReparo = tempoReparo;
     }
 
     public int getStatus() {
@@ -50,19 +50,10 @@ public class ProdutoServico extends Produto {
     public Status getStatus2() {
         return status2;
     }
-    
-    
-
-    
-
-
-
- 
 
     public void setStatus2(Status status2) {
         this.status2 = status2;
     }
-    
 
     public float getTempoReparo() {
         return tempoReparo;
